@@ -60,14 +60,5 @@ public class JwtAuthenticationController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
-    @PreAuthorize("hasAuthority('ROLE_CLIENT') or hasAuthority('ROLE_ADMIN')")
-    @RequestMapping(value = "/roles", method = RequestMethod.GET, consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-    public List<String> getUserRoles(@RequestParam("username") String username) throws Exception {
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(username);
 
-        return userDetails.getAuthorities().stream()
-                .map(u->((GrantedAuthority) u)
-                        .getAuthority()).collect(Collectors.toList());
-    }
 }
