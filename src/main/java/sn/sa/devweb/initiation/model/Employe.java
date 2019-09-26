@@ -1,15 +1,27 @@
 package sn.sa.devweb.initiation.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 
-public class Employer {
+@Entity
+public class Employe {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(length = 10)
     private String matricule;
+    @Column(length = 100)
     private  String nomComplet;
+    @Column(length = 15)
     private String tel;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ddn;
     private double salaire;
+    @JoinColumn(name = "id_service", referencedColumnName = "id")
+    @ManyToOne(optional = false)
     private Service service;
 
     public int getId() {
